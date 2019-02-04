@@ -31,6 +31,7 @@
       class: "btn btn-sm btn-danger"
     %>
 
+
     <%= link_to 'Add Question to Quiz',
         new_quiz_question_path(@quiz.id),
         class:"btn btn-sm btn-info"
@@ -40,6 +41,7 @@
     <div class="card-footer text-muted">
     <%= link_to 'Take this quiz', new_quiz_score_path(@quiz), class: "btn btn-sm btn-primary" %>
     <%= 
+
     link_to 'Back',
     'javascript:history.back()',
     class: "btn btn-sm btn-danger"
