@@ -1,24 +1,26 @@
-<h1>Quiz Details Page</h1>
 
-<h2>Title: <%= @quiz.name %></h2>
-<div class="well col-sm-8 col-sm-offset-2">
+<h1 class="styling-font">Quiz Details Page</h1>
 
-<p class="description">
-  <strong>Description:</strong>
-</p> <br>
 
-<p><%= @quiz.description %></p>
-<div class="post-actions">
 
-<% if user_signed_in? && current_user == @quiz.user %>
+<div class="card text-center quiz_create">
+  <div class="card-header">
+   <h2>Title: <%= @quiz.name %></h2>
+  </div>
+  <div class="card-body quiz_description">
+    <h5 class="card-title">
+      <strong>Description:</strong>
+      <p><%= @quiz.description %></p></h5>
+    <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
+    
+    <% if user_signed_in? && current_user == @quiz.user %>
+    <%=
+        link_to "Edit this Quiz",
+        edit_quiz_path(@quiz),
+        class: "btn btn-sm btn-primary" 
+    %>
 
-  <%=
-      link_to "Edit this Quiz",
-      edit_quiz_path(@quiz),
-      class: "btn btn-sm btn-primary" 
-  %>
-
-  <%=
+    <%=
       link_to "Delete this Quiz",
       quiz_path(@quiz),
       method: :delete,
@@ -27,32 +29,47 @@
               "Are you sure you want to Delete the Post?"
             },
       class: "btn btn-sm btn-danger"
-  %>
+    %>
 
-  <%= link_to 'Add Question to Quiz',
-      new_quiz_question_path(@quiz.id),
-      class:"btn btn-sm btn-info"
-  %>
 
-<ol>
-  <% @questions.each do |question|%>
+    <%= link_to 'Add Question to Quiz',
+        new_quiz_question_path(@quiz.id),
+        class:"btn btn-sm btn-info"
+    %>
 
-  <li><%= link_to question.body, question_path(question) %></li>
-  <%= link_to 'Edit Question', edit_question_path(question) , class:"badge badge-warning"%>
-  <%= link_to 'Delete Question', question_path(question), method: :delete,class: "badge badge-danger", data:{confirm: "This will permanently delete your question. Are you sure you want to proceed?"} %>
-  <% end %>
-</ol>
+    </div>
+    <div class="card-footer text-muted">
+    <%= link_to 'Take this quiz', new_quiz_score_path(@quiz), class: "btn btn-sm btn-primary" %>
+    <%= 
 
-<% end %>
-<% if @quiz.questions.length > 0 %>
-<%= link_to 'Take this quiz', new_quiz_score_path(@quiz), class: "btn btn-sm btn-primary" %>
-<% end %>
-<%= 
     link_to 'Back',
     'javascript:history.back()',
     class: "btn btn-sm btn-danger"
-%>
+     %>
+    </div>
+ </div>
+<% end %>
 
-</div>
+
+      <div class="card question_responses">
+        <ul class="list-group list-group-flush">
+                
+                <% @questions.each do |question|%>
+                <%= link_to question.body, question_path(question) %>
+                
+                
+                <div class="card">
+                <div class="card-body questions_wrote">
+                <br>
+                <br>
+                <%= link_to 'Edit Question', edit_question_path(question) , class:"badge badge-warning"%>
+                <%= link_to 'Delete Question', question_path(question), method: :delete,class: "badge badge-danger", data:{confirm: "This will permanently delete your question. Are you sure you want to proceed?"} %>
+                </div>
+              </div>
+                <% end %>
+               
+          </ul>
+        </div>
+    </div>
 </div>
 
